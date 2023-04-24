@@ -1,2 +1,2 @@
 # imm
-Interigent Mind Manager
+Intelligent Mind Manager
