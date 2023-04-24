@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require 'openai'
 require 'active_support'
+require 'benchmark'
 require_relative './loggable'
 
 class OpenAIClient
@@ -27,6 +29,19 @@ class OpenAIClient
   end
 
   def request(question)
+    response = ""
+    result_time = Benchmark.realtime do
+      response = request_without_benchmark(question)
+    end
+
+    result = "response time is #{result_time} second."
+    puts result
+    logger.debug(result)
+
+    response
+  end
+
+  def request_without_benchmark(question)
     @client.completions(
       parameters: {
         model: 'text-davinci-003',
