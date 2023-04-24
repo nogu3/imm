@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  server:
+    build: .
+    volumes:
+      - .:/home/imm/workspace
+      - bundle_folder:/usr/local/bundle
+    environment:
+      - API_KEY=<your-api-key>
+      - LOG_PATH=/home/imm/workspace/logs/server.log
+    tty: true
+
+volumes:
+  bundle_folder:

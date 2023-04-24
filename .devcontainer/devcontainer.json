@@ -1,0 +1,31 @@
+{
+	"name": "Intelligent Mind Manager",
+	"dockerComposeFile": "../docker-compose.yml",
+	"workspaceFolder": "/home/imm/workspace",
+	"remoteUser": "imm",
+	"service": "server",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"rebornix.Ruby",
+				"kaiwood.endwise",
+				"castwide.solargraph",
+				"ionutvmi.path-autocomplete"
+			],
+			"settings": {
+				// 基本的な言語機能のサポート
+				"ruby.useLanguageServer": true,
+				// Formatで使用するツールを`bundle exec`で実行するかどうか
+				"ruby.useBundler": true,
+				// `Format Document`で使用するフォーマッターにrubocopを指定
+				"ruby.format": "rubocop",
+				// Linterにrubocopを指定
+				"ruby.lint": {
+					"rubocop": {
+						"useBundler": true
+					}
+				},
+			}
+		}
+	},
+}
