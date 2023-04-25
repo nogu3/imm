@@ -12,7 +12,8 @@ class AnswerUnit < MagiUnit
   def question_content(content)
     question_content = <<~"EOS"
     あなたは#{@character}という人格の持ち主
-    20文字以内で人格に沿って質問に回答すること
+    #{@answer_tokens}文字以内で人格に沿って質問の具体的な解決策を回答すること
+    質問:
     #{content}
     EOS
     question_content

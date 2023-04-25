@@ -11,7 +11,7 @@ puts "質問:"
 puts user_question
 puts ""
 
-magi = Magi.new("楽観的", "悲観的", "否定的", "大阪のおばちゃん")
+magi = Magi.new("楽観的", "スティーブ・ジョブズ", "大阪のおばちゃん")
 answer = magi.question(user_question)
 
 puts "最終的な回答:"

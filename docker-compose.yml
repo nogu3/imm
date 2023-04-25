@@ -9,6 +9,7 @@ services:
     environment:
       - API_KEY=<your-api-key>
       - LOG_PATH=/home/imm/workspace/logs/server.log
+      - ANSWER_TOKENS=40
     tty: true
 
 volumes:

@@ -6,6 +6,7 @@ class MagiUnit
 
   def initialize
     @client = OpenAIClient.new
+    @answer_tokens = ENV['ANSWER_TOKENS']
   end
 
   def question(content)
