@@ -35,7 +35,6 @@ class OpenAIClient
     end
 
     result = "response time is #{result_time} second."
-    puts result
     logger.debug(result)
 
     response
