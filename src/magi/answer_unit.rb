@@ -6,7 +6,7 @@ class AnswerUnit < MagiUnit
 
   def initialize(character)
     @character = character
-    super
+    super()
   end
 
   def question_content(content)
@@ -22,7 +22,7 @@ class AnswerUnit < MagiUnit
     prefix = <<~EOS
     人格:
     #{@character}
-    
+
     EOS
     prefix + super_to_s_question_answer(content, answer)
   end
