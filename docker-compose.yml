@@ -5,7 +5,7 @@ services:
     build: .
     volumes:
       - .:/home/imm/workspace
-      - bundle_folder:/usr/local/bundle
+      - bundle_folder:/usr/local/lib/ruby/gems/3.2.0/gems
     environment:
       - API_KEY=<your-api-key>
       - LOG_PATH=/home/imm/workspace/logs/server.log
