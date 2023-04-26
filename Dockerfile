@@ -12,8 +12,14 @@ RUN apt-get update \
       git \
       # require ruby 3.2.1
       libyaml-dev \
+      # install python for wordcloud-cli
+      python3 \
+      python3-pip \
+      fonts-takao \
     && apt-get clean  \
     && rm -rf /var/lib/apt/lists/*
+
+RUN pip install wordcloud
 
 # ruby-build install
 RUN git clone --depth=1 https://github.com/rbenv/ruby-build \
