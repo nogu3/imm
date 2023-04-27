@@ -1,13 +1,17 @@
 require_relative './answer_unit'
 require_relative './aggregate_unit'
+require_relative './choise_character_unit'
 
 class Magi
-  def initialize(*characters)
-    @magi_units = characters.map { |character| AnswerUnit.new(character) }
+  def initialize
+    @choise_charcter_unit = ChoiseCharcterUnit.new
     @aggregate_unit = AggregateUnit.new
   end
 
   def question(content)
+    characters = choise_charcters(content)
+    @magi_units = characters.map { |character| AnswerUnit.new(character) }
+
     queue = Queue.new
     threads = @magi_units.map do|magi_unit|
       Thread.new do
@@ -28,6 +32,10 @@ class Magi
     answer = @aggregate_unit.question(opinion)
     puts @aggregate_unit.to_s_question_answer(opinion, answer)
     answer
+  end
+
+  def choise_charcters(user_question)
+    @choise_charcter_unit.choise(user_question)
   end
 
   def all_characters(&)
