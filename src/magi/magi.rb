@@ -10,15 +10,15 @@ class Magi
 
   def question(content)
     characters = choise_charcters(content)
-    @magi_units = characters.map { |character| AnswerUnit.new(character) }
+    @answer_units = characters.map { |character| AnswerUnit.new(character) }
 
     queue = Queue.new
-    threads = @magi_units.map do|magi_unit|
+    threads = @answer_units.map do|answer_unit|
       Thread.new do
-        answer = magi_unit.question(content)
-        puts magi_unit.to_s_question_answer(content, answer)
+        answer = answer_unit.question(content)
+        puts answer_unit.to_s_question_answer(content, answer)
 
-        summarize = magi_unit.summarize(answer)
+        summarize = answer_unit.summarize(answer)
         queue.push(summarize)
       end
     end
@@ -39,6 +39,6 @@ class Magi
   end
 
   def all_characters(&)
-    @magi_units.each(&)
+    @answer_units.each(&)
   end
 end
