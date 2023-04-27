@@ -10,6 +10,9 @@ class OpenAIClient
 
   def initialize
     api_key = ENV['API_KEY']
+    if api_key == "<your-api-key>"
+      raise NameError,"Not define api key.Please define your api key."
+    end
     @client = OpenAI::Client.new(access_token: api_key)
   end
 
@@ -43,7 +46,7 @@ class OpenAIClient
   def request_without_benchmark(question)
     @client.completions(
       parameters: {
-        model: 'text-davinci-003',
+        model: 'gpt-3.5-turbo',
         prompt: question,
         max_tokens: 2028,
         temperature: 0.5
