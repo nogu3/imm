@@ -2,17 +2,40 @@
 
 require_relative './magi/magi'
 require_relative './utils/openai_client'
+require_relative './utils/loggable'
 
-user_question = File.read('./test/question.txt', encoding: Encoding::UTF_8)
+class Main
+  include Loggable
 
-puts '少々お待ちを。'
+  def execute 
+    user_questions = File.readlines('./test/question.txt', encoding: Encoding::UTF_8)
 
-puts "質問:"
-puts user_question
-puts ""
+    answers = []
+    
+    logger.debug("start!!")
+    
+    logger.info('少々お待ちを。')
+    user_questions.each.with_index(1) do |user_question, i|
+      logger.debug("質問:")
+      logger.debug(user_question)
+      logger.debug("")
+    
+      magi = Magi.new 
+      answer = magi.question(user_question)
+    
+      logger.debug("最終的な回答:")
+      logger.debug(answer)
+      answers.push("#{i},#{user_question.chomp},#{answer.chomp}")
+    end
+    
+    result = answers.join("\n")
+    
+    logger.info("まとめ")
+    logger.info(result)
 
-magi = Magi.new
-answer = magi.question(user_question)
+    logger.debug("end!!")
+  end
+end
 
-puts "最終的な回答:"
-puts answer
+Main.new.execute
+
