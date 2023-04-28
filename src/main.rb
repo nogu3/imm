@@ -10,25 +10,38 @@ class Main
   def execute 
     user_questions = File.readlines('./test/question.txt', encoding: Encoding::UTF_8)
 
-    answers = []
+    queue = Queue.new
     
     logger.debug("start!!")
     
     logger.info('少々お待ちを。')
-    user_questions.each.with_index(1) do |user_question, i|
-      logger.debug("質問:")
-      logger.debug(user_question)
-      logger.debug("")
-    
-      magi = Magi.new 
-      answer = magi.question(user_question)
-    
-      logger.debug("最終的な回答:")
-      logger.debug(answer)
-      answers.push("#{i},#{user_question.chomp},#{answer.chomp}")
+    threads = user_questions.map.with_index(1) do |user_question, i|
+      Thread.new do
+        logger.debug("質問:")
+        logger.debug(user_question)
+        logger.debug("")
+        
+        magi = Magi.new 
+        answer = magi.question(user_question)
+        
+        logger.debug("最終的な回答:")
+        logger.debug(answer)
+        queue.push({
+          index: i,
+          answer: "#{i},#{user_question.chomp},#{answer.chomp}\n"
+        })
+      end
     end
-    
-    result = answers.join("\n")
+
+    threads.each(&:join)
+    answers = []
+    while !queue.empty?
+      answers.push(queue.pop)
+    end
+
+    result = answers.sort{|prev_answer, next_answer| prev_answer[:index] <=> next_answer[:index]}
+                    .map {|answer|answer[:answer]}
+                    .join()
     
     logger.info("まとめ")
     logger.info(result)
