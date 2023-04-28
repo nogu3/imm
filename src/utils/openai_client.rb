@@ -46,7 +46,7 @@ class OpenAIClient
   def request_without_benchmark(question)
     @client.completions(
       parameters: {
-        model: 'gpt-3.5-turbo',
+        model: 'text-davinci-003',
         prompt: question,
         max_tokens: 2028,
         temperature: 0.5
