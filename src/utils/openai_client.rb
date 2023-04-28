@@ -50,7 +50,7 @@ class OpenAIClient
           { role: "system", content: request_param[:system_setting_character]},
           { role: "user", content: request_param[:question]}
         ],
-        temperature: 1.2,
+        temperature: 1,
       }
     )
 
