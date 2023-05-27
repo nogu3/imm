@@ -10,13 +10,24 @@ class AnswerUnit < MagiUnit
   end
 
   def question_content(content)
-    question_content = <<~"EOS"
-    あなたは#{@character}という人格の持ち主
-    #{@answer_tokens}文字以内で人格に沿って質問の具体的な解決策を回答すること
-    質問:
+    <<~"EOS"
+    # 命令文
+    #{@answer_tokens}文字以内で人格に沿って入力文に対する具体的な解決策を回答してください
+
+    # 制約条件
+    ・具体的で行動しやすい解決策を提示すること
+
+    # 入力文
     #{content}
+
+    # 出力文
     EOS
-    question_content
+  end
+
+  def system_setting_character
+    <<~"EOS"
+    あなたは、#{@character}です。
+    EOS
   end
 
   def to_s_question_answer(content, answer)

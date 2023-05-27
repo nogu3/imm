@@ -11,10 +11,14 @@ class MagiUnit
 
   def question(content)
     question_content = question_content(content)
-    @client.completions(question_content)
+    @client.chat(system_setting_character, question_content)
   end
   
   def question_content(content)
+    raise NotImplementedError
+  end
+
+  def system_setting_character(character_setting)
     raise NotImplementedError
   end
 

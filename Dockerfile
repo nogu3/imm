@@ -34,6 +34,9 @@ RUN gem update --system 3.4.12
 
 WORKDIR /home/imm/workspace
 
+# Ruby char code change utf-8
+RUN export RUBYOPT=-EUTF-8
+
 # install ruby library
 RUN gem install bundler
 
@@ -49,6 +52,8 @@ RUN bundle install
 RUN curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" && \
     unzip /tmp/awscliv2.zip -d /tmp/ && /tmp/aws/install -i /usr/local/aws-cli -b /usr/local/bin
 
-RUN useradd -U -u $UID -m imm -s /bin/bash
+RUN useradd -U -u $UID -m imm -s /bin/bash && \
+    chown -R imm:imm /home/imm
 
 USER imm
+

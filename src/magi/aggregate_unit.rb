@@ -4,8 +4,7 @@ class AggregateUnit < MagiUnit
   def question_content(content)
     question_content = <<~"EOS"
     # 命令文
-    あなたはファシリテーションのプロです
-    以下の制約条件と入力分を元に、意見を集約して具体的な解決策を提案してください。
+    以下の制約条件と入力文を元に、意見を集約して具体的な解決策を提案してください。
 
     # 制約条件
     ・#{@answer_tokens}文字以内で回答すること
@@ -18,4 +17,11 @@ class AggregateUnit < MagiUnit
     EOS
     question_content
   end
+
+  def system_setting_character
+    <<~"EOS"
+    あなたはファシリテーションのプロです。
+    EOS
+  end
+
 end

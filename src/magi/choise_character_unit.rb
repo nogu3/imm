@@ -1,12 +1,27 @@
+require_relative './magi_unit'
+
 class ChoiseCharcterUnit < MagiUnit
   def question_content(content)
-    question_content = <<~"EOS"
-    以下の質問に最適な3人の人格を決めてください。
-    人格は半角のカンマ区切りで返すこと
-    質問:
+    <<~"EOS"
+    # 命令文
+    入力文に最適な3人の人格を決めてください。
+
+    # 制約条件
+    ・人格は半角のカンマ区切りで返すこと
+    ・人格の名称以外は返さないこと
+    ・人格の説明は不要
+
+    # 入力文
     #{content}
+
+    # 出力文
     EOS
-    question_content
+  end
+
+  def system_setting_character
+    <<~"EOS"
+    あなたはプロンプトエンジニアリングのプロです。
+    EOS
   end
 
   def choise(user_question)
