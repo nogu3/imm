@@ -34,6 +34,9 @@ RUN gem update --system 3.4.12
 
 WORKDIR /home/imm/workspace
 
+# Ruby char code change utf-8
+RUN export RUBYOPT=-EUTF-8
+
 # install ruby library
 RUN gem install bundler
 
