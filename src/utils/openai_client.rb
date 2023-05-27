@@ -10,9 +10,8 @@ class OpenAIClient
 
   def initialize
     api_key = ENV['API_KEY']
-    if api_key == "<your-api-key>"
-      raise NameError,"Not define api key.Please define your api key."
-    end
+    raise NameError, 'Not define api key.Please define your api key.' if api_key == '<your-api-key>'
+
     @client = OpenAI::Client.new(access_token: api_key)
   end
 
@@ -27,37 +26,38 @@ class OpenAIClient
   end
 
   def request(request_param)
-    response = ""
-    is_error = false
+    response = ''
     result_time = Benchmark.realtime do
-      response, is_error = request_without_benchmark(request_param)
+      response = request_without_benchmark(request_param)
     end
 
     logger.debug("response time is #{result_time} second.")
 
-    if is_error
-      failed(response)
-    end
+    failed(response) if error?(response)
 
     response
   end
 
-  def request_without_benchmark(request_param)
+  def request_without_benchmark(request_params)
     response = @client.chat(
-      parameters: {
-        model: 'gpt-3.5-turbo',
-        messages: [
-          { role: "system", content: request_param[:system_setting_character]},
-          { role: "user", content: request_param[:question]}
-        ],
-        temperature: 1,
-      }
+      parameters: create_params(request_params)
     )
 
-    logger.debug("response.body:")
-    logger.debug(response.body)
+    logger.debug('response:')
+    logger.debug(response)
 
-    return response, error?(response)
+    response
+  end
+
+  def create_params(request_params)
+    {
+      model: 'gpt-3.5-turbo',
+      messages: [
+        { role: 'system', content: request_params[:system_setting_character] },
+        { role: 'user', content: request_params[:question] }
+      ],
+      temperature: 0.7
+    }
   end
 
   def get_answer(response)
@@ -67,11 +67,11 @@ class OpenAIClient
   def failed(response)
     logger.info('すみません。うまく答えられないので、開発者の助けがほしいです。')
     logger.info('stacktrace:')
-    logger.info(response)
-    raise RuntimeError, "openai request failed."
+    logger.info(response['error'])
+    raise 'openai request failed.'
   end
 
   def error?(response)
-    response.code != 200
+    response['error'].present?
   end
 end

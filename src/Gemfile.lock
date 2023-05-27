@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (7.0.4.3)
+    activesupport (7.0.5)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -12,24 +12,29 @@ GEM
     concurrent-ruby (1.2.2)
     diff-lcs (1.5.0)
     e2mmap (0.1.0)
-    httparty (0.21.0)
-      mini_mime (>= 1.0.0)
-      multi_xml (>= 0.5.2)
-    i18n (1.12.0)
+    faraday (2.7.5)
+      faraday-net_http (>= 2.0, < 3.1)
+      ruby2_keywords (>= 0.0.4)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
+    faraday-net_http (3.0.2)
+    ffi (1.15.5)
+    i18n (1.13.0)
       concurrent-ruby (~> 1.0)
-    jaro_winkler (1.5.4)
+    jaro_winkler (1.5.5)
     json (2.6.3)
     kramdown (2.4.0)
       rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
-    mini_mime (1.1.2)
     minitest (5.18.0)
-    multi_xml (0.6.0)
-    nokogiri (1.14.3-x86_64-linux)
+    multipart-post (2.3.0)
+    natto (1.2.0)
+      ffi (>= 1.9.0)
+    nokogiri (1.15.2-x86_64-linux)
       racc (~> 1.4)
     parallel (1.23.0)
-    parser (3.2.2.0)
+    parser (3.2.2.1)
       ast (~> 2.4.1)
     racc (1.6.2)
     rainbow (3.1.1)
@@ -38,7 +43,7 @@ GEM
     reverse_markdown (2.1.1)
       nokogiri
     rexml (3.2.5)
-    rubocop (1.50.2)
+    rubocop (1.51.0)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.2.0.0)
@@ -48,11 +53,13 @@ GEM
       rubocop-ast (>= 1.28.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.28.0)
+    rubocop-ast (1.28.1)
       parser (>= 3.2.1.0)
-    ruby-openai (3.7.0)
-      httparty (>= 0.18.1)
+    ruby-openai (4.1.0)
+      faraday (>= 1)
+      faraday-multipart (>= 1)
     ruby-progressbar (1.13.0)
+    ruby2_keywords (0.0.5)
     solargraph (0.49.0)
       backport (~> 1.2)
       benchmark
@@ -69,7 +76,7 @@ GEM
       thor (~> 1.0)
       tilt (~> 2.0)
       yard (~> 0.9, >= 0.9.24)
-    thor (1.2.1)
+    thor (1.2.2)
     tilt (2.1.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
@@ -81,10 +88,11 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
+  natto
   rubocop
   ruby-openai
   solargraph
   yard
 
 BUNDLED WITH
-   2.4.12
+   2.4.13
